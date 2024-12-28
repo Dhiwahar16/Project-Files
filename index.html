@@ -3,9 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <h1>Project</h1>
+    <div class="container">
+        <div class="title-display">
+            To-Do List
+        </div>
+        <hr/>
+        <div id="task-container"></div>
+        <button onclick="addTask()">Add Task</button>
+    </div>
+
+    <script>
+        function addTask() {
+            const taskContainer = document.getElementById('task-container');
+            const taskDiv = document.createElement('div');
+            taskDiv.classList.add('task-item');
+            
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.onclick = function() {
+                strick(this);
+            };
+            
+            const taskInput = document.createElement('input');
+            taskInput.type = 'text';
+            taskInput.classList.add('task');
+            taskInput.placeholder = 'Enter your task';
+            
+            const deleteButton = document.createElement('button');
+            deleteButton.innerText = 'Delete';
+            deleteButton.classList.add('delete-btn');
+            deleteButton.onclick = function() {
+                deleteTask(taskDiv);
+            };
+            taskDiv.appendChild(checkbox);
+            taskDiv.appendChild(taskInput);
+            taskDiv.appendChild(deleteButton);
+            
+            taskContainer.appendChild(taskDiv);
+        }
+        function strick(checkbox) {
+            const task = checkbox.nextElementSibling;
+            if (checkbox.checked) {
+                task.classList.add('complete');
+            } else {
+                task.classList.remove('complete');
+            }
+        }
+        function deleteTask(taskDiv) {
+            taskDiv.remove();
+        }
+    </script>
 </body>
 </html>
